@@ -1,0 +1,33 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @trail %>
+
+<div>
+  <h3>Activities on this Trail:</h3>
+  <% if @trail.activities.any? %>
+    <ul>
+      <% @trail.activities.each do |activity| %>
+        <li>
+          <%= link_to activity_path(activity) do %>
+            <strong><%= activity.user.name %>'s Activity:</strong>
+            <%= activity.start_time.strftime("%B %d, %Y") %>
+            (<%= activity.in_progress ? 'In Progress' : 'Completed' %>)
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No activities recorded for this trail yet.</p>
+  <% end %>
+</div>
+
+<div>
+  <%= link_to 'Create New Activity for this Trail', new_activity_path(trail_id: @trail.id) %>
+  <br>
+  <%= link_to "Edit this trail", edit_trail_path(@trail) %> |
+  <%= link_to "Back to trails", trails_path %>
+
+  <%= button_to "Destroy this trail", @trail, method: :delete %>
+</div>
+
+<%= render "comments/comments", trail: @trail %>

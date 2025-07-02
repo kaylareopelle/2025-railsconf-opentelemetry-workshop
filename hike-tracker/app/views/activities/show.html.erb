@@ -1,0 +1,19 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @activity %>
+
+<div>
+  <% # Button to mark as completed %>
+  <% if @activity.in_progress? %>
+    <%= button_to 'Mark as Completed', activity_path(@activity, activity: { in_progress: false, end_time: Time.now }),
+                  method: :patch,
+                  data: { confirm: "Are you sure you want to mark this activity as completed?" } %>
+  <% end %>
+</div>
+
+<div>
+  <%= link_to "Edit this activity", edit_activity_path(@activity) %> |
+  <%= link_to "Back to activities", activities_path %>
+
+  <%= button_to "Destroy this activity", @activity, method: :delete %>
+</div>

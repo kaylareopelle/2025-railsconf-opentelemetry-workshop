@@ -1,0 +1,35 @@
+<div id="<%= dom_id activity %>">
+  <h3><%= activity.name %></h3>
+
+  <p>
+    <strong>User:</strong>
+    <%= link_to activity.user.name, user_path(activity.user) %>
+  </p>
+
+  <p>
+    <strong>Trail:</strong>
+    <%= link_to activity.trail.name, trail_path(activity.trail) %>
+  </p>
+
+  <p>
+    <strong>Distance:</strong>
+    <%= activity.trail.length %> miles
+  </p>
+
+  <p>
+    <strong>Started on:</strong>
+    <%= activity.start_time.strftime("%B %d, %Y") %>
+  </p>
+
+  <p>
+    <% if activity.end_time %>
+      <strong>Duration:</strong>
+      <%= activity.duration.inspect %>
+    <% end %>
+  </p>
+
+  <p>
+    <strong>Status:</strong>
+    <%= in_progress_text(activity) %>
+  </p>
+</div>

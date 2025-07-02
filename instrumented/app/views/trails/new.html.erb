@@ -1,0 +1,11 @@
+<% content_for :title, "New trail" %>
+
+<h1>New trail</h1>
+
+<%= render "form", trail: @trail %>
+
+<br>
+
+<div>
+  <%= link_to "Back to trails", trails_path %>
+</div>

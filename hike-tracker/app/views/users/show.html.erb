@@ -1,0 +1,32 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @user %>
+
+<div>
+    <h3>Activities:</h3>
+    <% if @user.activities.any? %>
+      <ul>
+        <% @user.activities.each do |activity| %>
+          <li>
+            <%= link_to activity_path(activity) do %>
+              <strong><%= activity.trail.name %>'s Activity:</strong>
+              <%= activity.start_time.strftime("%B %d, %Y") %>
+              (<%= activity.in_progress ? 'In Progress' : 'Completed' %>)
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>No activities recorded for this user yet.</p>
+    <% end %>
+  </div>
+</div>
+
+<div>
+  <%= link_to 'Create New Activity for this User', new_activity_path(user_id: @user.id) %>
+  <br>
+  <%= link_to "Edit this user", edit_user_path(@user) %> |
+  <%= link_to "Back to users", users_path %>
+
+  <%= button_to "Destroy this user", @user, method: :delete %>
+</div>

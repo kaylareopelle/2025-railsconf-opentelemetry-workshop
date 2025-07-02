@@ -1,0 +1,42 @@
+<%= form_with(model: trail) do |form| %>
+  <% if trail.errors.any? %>
+    <div style="color: red">
+      <h3><%= pluralize(trail.errors.count, "error") %> prohibited this trail from being saved:</h3>
+
+      <ul>
+        <% trail.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :location, style: "display: block" %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div>
+    <%= form.label :length, style: "display: block" %>
+    <%= form.number_field :length %>
+  </div>
+
+  <div>
+    <%= form.label :elevation, style: "display: block" %>
+    <%= form.number_field :elevation %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.textarea :description %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

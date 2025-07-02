@@ -1,0 +1,43 @@
+source "https://rubygems.org"
+
+# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
+gem "rails", "~> 8.0.2"
+# The modern asset pipeline for Rails [https://github.com/rails/propshaft]
+gem "propshaft"
+# Use sqlite3 as the database for Active Record
+gem "sqlite3", ">= 2.1"
+# Use the Puma web server [https://github.com/puma/puma]
+gem "puma", ">= 5.0"
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem "tzinfo-data", platforms: %i[ windows jruby ]
+
+group :development, :test do
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+end
+
+# OpenTelemetry Gems
+gem 'opentelemetry-sdk'
+gem 'opentelemetry-exporter-otlp'
+# gem 'opentelemetry-instrumentation-all'
+
+# Metrics
+gem 'opentelemetry-metrics-sdk', github: 'kaylareopelle/opentelemetry-ruby', branch: 'fix-nil-message-error', glob: 'metrics_sdk/*.gemspec'
+#, path: '~/dev/opentelemetry-ruby/metrics_sdk'
+gem 'opentelemetry-exporter-otlp-metrics'#, path: '~/dev/opentelemetry-ruby/exporter/otlp-metrics'
+
+# Logs
+gem 'opentelemetry-logs-sdk'
+gem 'opentelemetry-exporter-otlp-logs'
+# Install the logger instrumentation gem from a branch
+# as well as instrumentation-all to get things auto-instrumented
+gem 'opentelemetry-instrumentation-all',
+  git: 'https://github.com/kaylareopelle/opentelemetry-ruby-contrib',
+  branch: 'logger-instrumentation',
+  glob: 'instrumentation/all/*.gemspec'
+
+gem 'opentelemetry-instrumentation-logger',
+  git: 'https://github.com/kaylareopelle/opentelemetry-ruby-contrib',
+  branch: 'logger-instrumentation',
+  glob: 'instrumentation/logger/*.gemspec'
