@@ -9,11 +9,13 @@ class ActivitiesController < ApplicationController
 
   # GET /activities/1 or /activities/1.json
   def show
+    # Randomly raise an error
+    # This will help see how errors are reported by OpenTelemetry
     test = rand(10)
     if test < 7
       render :show
     else
-      raise 'Bad luck'
+      raise "Bad luck"
     end
   end
 
@@ -80,6 +82,8 @@ class ActivitiesController < ApplicationController
     end
 
     def add_location_attribute_to_span
-      OpenTelemetry::Trace.current_span.add_attributes({'activity.trail.location' => @activity.trail.location })
+      OpenTelemetry::Trace.current_span.add_attributes(
+        { "activity.trail.location" => @activity.trail.location }
+      )
     end
 end

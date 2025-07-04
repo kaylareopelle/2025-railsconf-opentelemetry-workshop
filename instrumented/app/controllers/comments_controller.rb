@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_action :set_trail
 
   def create
-    @trail.comments.create! params.expect(comment: [:content])
+    @trail.comments.create! params.expect(comment: [ :content ])
     redirect_to @trail
   end
 

@@ -9,6 +9,8 @@ gem "sqlite3", ">= 2.1"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 
+gem "rubocop-rails-omakase", require: false, group: [ :development ]
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
@@ -18,26 +20,30 @@ group :development, :test do
 end
 
 # OpenTelemetry Gems
-gem 'opentelemetry-sdk'
-gem 'opentelemetry-exporter-otlp'
+gem "opentelemetry-sdk"
+gem "opentelemetry-exporter-otlp"
 # gem 'opentelemetry-instrumentation-all'
 
 # Metrics
-gem 'opentelemetry-metrics-sdk', github: 'kaylareopelle/opentelemetry-ruby', branch: 'fix-nil-message-error', glob: 'metrics_sdk/*.gemspec'
-#, path: '~/dev/opentelemetry-ruby/metrics_sdk'
-gem 'opentelemetry-exporter-otlp-metrics'#, path: '~/dev/opentelemetry-ruby/exporter/otlp-metrics'
+gem "opentelemetry-metrics-sdk",
+  github: "kaylareopelle/opentelemetry-ruby",
+  branch: "fix-nil-message-error",
+  glob: "metrics_sdk/*.gemspec"
+
+gem "opentelemetry-exporter-otlp-metrics"
 
 # Logs
-gem 'opentelemetry-logs-sdk'
-gem 'opentelemetry-exporter-otlp-logs'
+gem "opentelemetry-logs-sdk"
+gem "opentelemetry-exporter-otlp-logs"
+
 # Install the logger instrumentation gem from a branch
 # as well as instrumentation-all to get things auto-instrumented
-gem 'opentelemetry-instrumentation-all',
-  git: 'https://github.com/kaylareopelle/opentelemetry-ruby-contrib',
-  branch: 'logger-instrumentation',
-  glob: 'instrumentation/all/*.gemspec'
+gem "opentelemetry-instrumentation-all",
+  github: "kaylareopelle/opentelemetry-ruby-contrib",
+  branch: "logger-instrumentation",
+  glob: "instrumentation/all/*.gemspec"
 
-gem 'opentelemetry-instrumentation-logger',
-  git: 'https://github.com/kaylareopelle/opentelemetry-ruby-contrib',
-  branch: 'logger-instrumentation',
-  glob: 'instrumentation/logger/*.gemspec'
+gem "opentelemetry-instrumentation-logger",
+  github: "kaylareopelle/opentelemetry-ruby-contrib",
+  branch: "logger-instrumentation",
+  glob: "instrumentation/logger/*.gemspec"

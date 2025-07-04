@@ -11,7 +11,7 @@ class Activity < ApplicationRecord
   after_save :check_progress, :check_end_time, :count_completions
 
   def duration
-    OpenTelemetry.tracer_provider.tracer('hike-tracker').in_span('Activity duration') do
+    OpenTelemetry.tracer_provider.tracer("hike-tracker").in_span("Activity duration") do
       if end_time
         ActiveSupport::Duration.build(end_time - start_time)
       else
@@ -33,6 +33,6 @@ class Activity < ApplicationRecord
   def count_completions
     return if in_progress
 
-    HIKE_COUNTER.add(1, attributes: {'user_id' => user.id, 'location' => trail.location, 'duration' => duration})
+    HIKE_COUNTER.add(1, attributes: { "user_id" => user.id, "location" => trail.location, "duration" => duration })
   end
 end
