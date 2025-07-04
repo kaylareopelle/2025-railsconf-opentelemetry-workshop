@@ -1,9 +1,11 @@
 # RailsConf 2025: OpenTelemetry Workshop
 
-**This repository is still a work in progress.**
+**This repository is still a work in progress. You may need to pull before the**
+**workshop to get the latest copy.**
 
-This repository accompanies a workshop that will be held at RailsConf 2025 in
-Philadelphia on July 9, 2025.
+This repository accompanies a workshop titled "How to instrument your Rails app
+with OpenTelemetry" that will be held at RailsConf 2025 in Philadelphia on
+July 9, 2025.
 
 ## Overview
 
@@ -15,20 +17,24 @@ we'll be working with. It uses Rails 8.0 and Ruby 3.4.2.
 * `hike-tracker-instrumented`: This is how the application will look at the end
 of the workshop, after being instrumented with OpenTelemetry.
 
-For the workshop, please `cd` into `hike-tracker_original` and work from that application.
+For the workshop, please `cd` into `hike-tracker_original` and work from that
+application.
 
 If you want to check your work, or copy/paste the code, consult
 `hike-tracker-instrumented`.
 
-**Hot tip:** Bundling before the workshop will help reduce the burden on the
-Wifi in the conference room during the event!
+**Hot tip:** Bundling the `hike-tracker_original` application before the
+workshop will help reduce the burden on the Wifi in the conference room
+during the event!
 
 ## Prerequsities
 
-* MacOS or a Linux-based operating
-* Ruby 3.4.2
-* [SQLite][sqlite] - `brew install sqlite`
-* [An observability backend](#observability-backend-recommendations-observability-backend-recommendations)
+Before the workshop, I recommend that you have:
+* Ruby 3.4.2 installed (you can use any version 3.1 or above, but will need to
+  update the `.ruby-version` file)
+* [SQLite][sqlite] installed - `brew install sqlite`
+* [An observability backend](#observability-backend-recommendations) to
+  visualize your data
 
 ## Initial setup
 
@@ -37,13 +43,18 @@ cd hike-tracker_original
 bin/setup
 ```
 
+This will:
+* Bundle the application
+* Prepare the database (this includes seeding if it creates the database)
+* Start the Rails server
+
 ## Development
 
 To run the application:
 
 ```sh
 cd hike-tracker_original
-bin/rails db:seed
+bin/rails db:seed # optional if you've already seeded
 bin/rails server
 ```
 
