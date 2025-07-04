@@ -9,13 +9,16 @@ Philadelphia on July 9, 2025.
 
 This repository has two applications in it:
 
-* `hike-tracker`: This is an uninstrumented copy of the application we'll be working
-with. It uses Rails 8.0 and Ruby 3.4.2.
+* `hike-tracker_original`: This is an uninstrumented copy of the application
+we'll be working with. It uses Rails 8.0 and Ruby 3.4.2.
 
-* `instrumented`: This is how the application will look at the end of the
-workshop, after being instrumented with OpenTelemetry.
+* `hike-tracker-instrumented`: This is how the application will look at the end
+of the workshop, after being instrumented with OpenTelemetry.
 
-For the workshop, please `cd` into `hike-tracker` and work from that application.
+For the workshop, please `cd` into `hike-tracker_original` and work from that application.
+
+If you want to check your work, or copy/paste the code, consult
+`hike-tracker-instrumented`.
 
 **Hot tip:** Bundling before the workshop will help reduce the burden on the
 Wifi in the conference room during the event!
@@ -30,7 +33,7 @@ Wifi in the conference room during the event!
 ## Initial setup
 
 ```sh
-cd hike-tracker
+cd hike-tracker_original
 bin/setup
 ```
 
@@ -39,7 +42,8 @@ bin/setup
 To run the application:
 
 ```sh
-cd hike-tracker
+cd hike-tracker_original
+bin/rails db:seed
 bin/rails server
 ```
 
@@ -47,7 +51,7 @@ In a separate terminal window, you can generate traffic for your application
 using:
 
 ```sh
-cd hike-tracker
+cd hike-tracker_original
 script/traffic.sh
 ```
 
@@ -56,19 +60,21 @@ the Users, Trails, and Activities controllers. It may make requests to show
 pages with IDs that don't exist. This will help us see how OpenTelemetry
 handles errors.
 
-To stop the script enter: `CTRL + C`
+To stop the script, enter: `CTRL + C`
 
-## The Data Model
+You can also generate traffic by clicking around in the UI.
+
+## The Data model
 
 During the workshop, we'll be using a simple Rails application designed to track
-hikes. There are three main models: Users, Trails, and Activities.
+hikes. There are three main resources: Users, Trails, and Activities.
 
-An Activity belongs to a User and a Trail. Trails can also have comments.
+An Activity belongs to a User and a Trail. Trails can also have many comments.
 
 We'll put the majority of our custom instrumentation in the Activity-related
 code.
 
-## Observability backend recommendations [#observability-backend-recommendations]
+## Observability backend recommendations
 
 One of the beautiful things about OpenTelemetry is its vendor-agnostic nature.
 It doesn't deal with how to visualize your data, only how to collect and shape
