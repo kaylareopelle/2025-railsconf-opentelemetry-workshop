@@ -12,4 +12,7 @@ while true; do
         curl "http://localhost:3000/${controller}/${n}" > /dev/null 2>&1
     done
     sleep 1
+    # # if you want more variability in your requests, use `n` to determine
+    # # the sleep duration:
+    # sleep ${n}
 done

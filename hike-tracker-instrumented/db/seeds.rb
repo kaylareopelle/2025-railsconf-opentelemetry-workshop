@@ -115,6 +115,13 @@ Activity.find_or_create_by!(
 )
 
 Activity.find_or_create_by!(
+  name: 'Backpacking trip',
+  user_id: user3.id,
+  trail_id: trail3.id,
+  in_progress: true
+)
+
+Activity.find_or_create_by!(
   name: 'Training hike',
   user_id: user3.id,
   trail_id: trail1.id,

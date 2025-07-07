@@ -1,12 +1,5 @@
 # frozen_string_literal: true
 
-require "opentelemetry/sdk"
-require "opentelemetry/exporter/otlp"
-require "opentelemetry-metrics-sdk"
-require "opentelemetry-exporter-otlp-metrics"
-require "opentelemetry-logs-sdk"
-require "opentelemetry-exporter-otlp-logs"
-
 ENV["OTEL_LOGS_EXPORTER"] = "otlp"
 
 # Exporting to New Relic
@@ -18,23 +11,23 @@ OpenTelemetry::SDK.configure do |config|
   config.service_name = "hike-tracker"
   config.service_version = "1.0.0"
 
-  # # Installs instrumentation for all available libraries
+  # Installs instrumentation for all available libraries
   config.use_all({
     "OpenTelemetry::Instrumentation::Rack" => {
       allowed_response_headers: [ "Content-Type" ]
     }
   })
 
-  # # Can also do this library by library, for example:
+  # Can also install instrumentation this library by library, for example:
   # config.use 'OpenTelemetry::Instrumentation::Rack', { allowed_request_hedaers: ['Host', 'Referer']}
   # config.use 'OpenTelemetry::Instrumentation::Rails'
 end
 
 # Create a tracer specific to this application to create spans/traces
-OpenTelemetry.tracer_provider.tracer(Rails.application.name)
+APP_TRACER = OpenTelemetry.tracer_provider.tracer("hike-tracker")
 
 # Create a meter for this application to record metrics
-meter = OpenTelemetry.meter_provider.meter(Rails.application.name)
+meter = OpenTelemetry.meter_provider.meter("hike-tracker")
 
 # Save the counter as a constant to access it outside the initializer
 HIKE_COUNTER = meter.create_counter("activities.completed", unit: "activity", description: "Number of activities completed")
@@ -49,7 +42,7 @@ OpenTelemetry.meter_provider.add_view("http.server.request.duration",
   )
 )
 
-request_duration_metric = meter.create_histogram("http.server.request.duration", unit: "s", description: "Duration of HTTP server requests.")
+duration_histogram = meter.create_histogram("http.server.request.duration", unit: "s", description: "Duration of HTTP server requests.")
 
 # Subscribe to an ActiveSupport notification to add a metric defined by Semantic Conventions that's not recorded by instrumentation yet
 ActiveSupport::Notifications.subscribe "process_action.action_controller" do |event|
@@ -67,5 +60,5 @@ ActiveSupport::Notifications.subscribe "process_action.action_controller" do |ev
     "server.port" => payload[:headers]["SERVER_PORT"]
   }
 
-  request_duration_metric.record(event.duration, attributes: attributes)
+  duration_histogram.record(event.duration, attributes: attributes)
 end
