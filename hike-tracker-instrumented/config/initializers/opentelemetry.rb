@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+ENV["OTEL_METRIC_EXPORT_INTERVAL"] = "3000"
 ENV["OTEL_LOGS_EXPORTER"] = "otlp"
 
 # Exporting to New Relic

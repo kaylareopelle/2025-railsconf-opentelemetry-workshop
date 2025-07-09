@@ -20,16 +20,14 @@ group :development, :test do
 end
 
 # OpenTelemetry Gems
+
+# Traces
 gem "opentelemetry-sdk"
 gem "opentelemetry-exporter-otlp"
 # gem 'opentelemetry-instrumentation-all'
 
 # Metrics
-gem "opentelemetry-metrics-sdk",
-  github: "kaylareopelle/opentelemetry-ruby",
-  branch: "fix-nil-message-error",
-  glob: "metrics_sdk/*.gemspec"
-
+gem "opentelemetry-metrics-sdk"
 gem "opentelemetry-exporter-otlp-metrics"
 
 # Logs
